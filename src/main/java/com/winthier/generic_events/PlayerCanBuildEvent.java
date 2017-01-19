@@ -1,0 +1,29 @@
+package com.winthier.generic_events;
+
+import lombok.Getter;
+import lombok.Setter;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Cancellable;
+import org.bukkit.event.HandlerList;
+import org.bukkit.event.block.BlockEvent;
+
+/**
+ * A plugin may call this event to ask around if a player is
+ * allowed to build at a certain location.  If the event gets
+ * cancelled, it means no.  The calling plugin may then choose not
+ * do whatever action it was about to commit.
+ */
+public class PlayerCanBuildEvent extends BlockEvent implements Cancellable {
+    @Getter final Player player;
+    @Getter @Setter boolean cancelled;
+
+    PlayerCanBuildEvent(Player player, Block block) {
+        super(block);
+        this.player = player;
+    }
+
+    // Event Stuff 
+    @Getter static HandlerList handlerList = new HandlerList();
+    @Override public HandlerList getHandlers() { return handlerList; }
+}

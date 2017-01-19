@@ -1,0 +1,19 @@
+package com.winthier.generic_events;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
+import org.bukkit.inventory.ItemStack;
+
+@Getter
+@RequiredArgsConstructor
+public class ItemNameEvent extends Event {
+    final ItemStack item;
+    @Setter String itemName;
+
+    // Event Stuff 
+    @Getter static HandlerList handlerList = new HandlerList();
+    @Override public HandlerList getHandlers() { return handlerList; }
+}
