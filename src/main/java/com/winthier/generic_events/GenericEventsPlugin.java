@@ -26,6 +26,12 @@ public final class GenericEventsPlugin extends JavaPlugin {
         return !event.isCancelled();
     }
 
+    public boolean playerCanGrief(Player player, Block block) {
+        PlayerCanGriefEvent event = new PlayerCanGriefEvent(player, block);
+        getServer().getPluginManager().callEvent(event);
+        return !event.isCancelled();
+    }
+
     public boolean playerCanDamageEntity(Player player, Entity entity) {
         PlayerCanDamageEntityEvent event = new PlayerCanDamageEntityEvent(player, entity);
         getServer().getPluginManager().callEvent(event);
