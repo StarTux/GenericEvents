@@ -14,16 +14,19 @@ import org.bukkit.event.block.BlockEvent;
  * cancelled, it means no.  The calling plugin may then choose not
  * do whatever action it was about to commit.
  */
+@Getter
 public class PlayerCanBuildEvent extends BlockEvent implements Cancellable {
-    @Getter final Player player;
-    @Getter @Setter boolean cancelled;
+    private final Player player;
+    @Setter private boolean cancelled;
 
     PlayerCanBuildEvent(Player player, Block block) {
         super(block);
         this.player = player;
     }
 
-    // Event Stuff 
-    @Getter static HandlerList handlerList = new HandlerList();
-    @Override public HandlerList getHandlers() { return handlerList; }
+    // Event Stuff
+    @Getter private static HandlerList handlerList = new HandlerList();
+    @Override public HandlerList getHandlers() {
+        return handlerList;
+    }
 }

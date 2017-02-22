@@ -7,8 +7,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class GenericEventsPlugin extends JavaPlugin {
-    @Getter static GenericEventsPlugin instance;
+public final class GenericEventsPlugin extends JavaPlugin {
+    @Getter private static GenericEventsPlugin instance;
 
     @Override
     public void onEnable() {
@@ -19,7 +19,7 @@ public class GenericEventsPlugin extends JavaPlugin {
     public void onDisable() {
         instance = null;
     }
-    
+
     public boolean playerCanBuild(Player player, Block block) {
         PlayerCanBuildEvent event = new PlayerCanBuildEvent(player, block);
         getServer().getPluginManager().callEvent(event);

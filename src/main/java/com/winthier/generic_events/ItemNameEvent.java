@@ -10,10 +10,12 @@ import org.bukkit.inventory.ItemStack;
 @Getter
 @RequiredArgsConstructor
 public class ItemNameEvent extends Event {
-    final ItemStack item;
-    @Setter String itemName;
+    private final ItemStack item;
+    @Setter private String itemName;
 
-    // Event Stuff 
-    @Getter static HandlerList handlerList = new HandlerList();
-    @Override public HandlerList getHandlers() { return handlerList; }
+    // Event Stuff
+    @Getter private static HandlerList handlerList = new HandlerList();
+    @Override public HandlerList getHandlers() {
+        return handlerList;
+    }
 }
