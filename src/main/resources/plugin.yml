@@ -5,5 +5,10 @@ website: http://www.winthier.com
 version: 0.1
 main: com.winthier.generic_events.GenericEventsPlugin
 depend: []
-commands: {}
+commands:
+  genericevents:
+    description: Debug command
+    permission: genericevents.genericevents
+    usage: |-
+      /genericevents itemname - get name of item in hand
 permissions: {}
