@@ -38,18 +38,21 @@ public final class GenericEventsPlugin extends JavaPlugin {
     }
 
     public boolean playerCanBuild(Player player, Block block) {
+        if (player.isOp()) return true;
         PlayerCanBuildEvent event = new PlayerCanBuildEvent(player, block);
         getServer().getPluginManager().callEvent(event);
         return !event.isCancelled();
     }
 
     public boolean playerCanGrief(Player player, Block block) {
+        if (player.isOp()) return true;
         PlayerCanGriefEvent event = new PlayerCanGriefEvent(player, block);
         getServer().getPluginManager().callEvent(event);
         return !event.isCancelled();
     }
 
     public boolean playerCanDamageEntity(Player player, Entity entity) {
+        if (player.isOp()) return true;
         PlayerCanDamageEntityEvent event = new PlayerCanDamageEntityEvent(player, entity);
         getServer().getPluginManager().callEvent(event);
         return !event.isCancelled();
