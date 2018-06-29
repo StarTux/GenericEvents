@@ -1,5 +1,6 @@
 package com.winthier.generic_events;
 
+import java.util.UUID;
 import lombok.Getter;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
@@ -58,9 +59,37 @@ public final class GenericEventsPlugin extends JavaPlugin {
         return !event.isCancelled();
     }
 
+    // Item
+
     public String getItemName(ItemStack item) {
         ItemNameEvent event = new ItemNameEvent(item);
         getServer().getPluginManager().callEvent(event);
         return event.getItemName();
+    }
+
+    // Money
+
+    public double getPlayerBalance(UUID uuid) {
+        PlayerBalanceEvent event = new PlayerBalanceEvent(uuid);
+        getServer().getPluginManager().callEvent(event);
+        return event.getBalance();
+    }
+
+    public boolean givePlayerMoney(UUID uuid, double balance) {
+        if (Double.isNaN(balance)) throw new IllegalArgumentException("Balance cannot be NaN");
+        if (Double.isInfinite(balance)) throw new IllegalArgumentException("Balance cannot be infinite");
+        if (balance < 0) throw new IllegalArgumentException("Balance cannot be negative");
+        AdjustPlayerBalanceEvent event = new AdjustPlayerBalanceEvent(uuid, balance);
+        getServer().getPluginManager().callEvent(event);
+        return event.isSuccessful();
+    }
+
+    public boolean takePlayerMoney(UUID uuid, double balance) {
+        if (Double.isNaN(balance)) throw new IllegalArgumentException("Balance cannot be NaN");
+        if (Double.isInfinite(balance)) throw new IllegalArgumentException("Balance cannot be infinite");
+        if (balance < 0) throw new IllegalArgumentException("Balance cannot be negative");
+        AdjustPlayerBalanceEvent event = new AdjustPlayerBalanceEvent(uuid, -balance);
+        getServer().getPluginManager().callEvent(event);
+        return event.isSuccessful();
     }
 }

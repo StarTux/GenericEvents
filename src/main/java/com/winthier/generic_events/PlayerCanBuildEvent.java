@@ -15,7 +15,7 @@ import org.bukkit.event.block.BlockEvent;
  * do whatever action it was about to commit.
  */
 @Getter
-public class PlayerCanBuildEvent extends BlockEvent implements Cancellable {
+public final class PlayerCanBuildEvent extends BlockEvent implements Cancellable {
     private final Player player;
     @Setter private boolean cancelled;
 

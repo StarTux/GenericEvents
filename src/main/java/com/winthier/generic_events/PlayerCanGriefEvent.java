@@ -20,7 +20,7 @@ import org.bukkit.event.block.BlockEvent;
  * event to trigger any kind of feedback or message to the player.
  */
 @Getter
-public class PlayerCanGriefEvent extends BlockEvent implements Cancellable {
+public final class PlayerCanGriefEvent extends BlockEvent implements Cancellable {
     private final Player player;
     @Setter private boolean cancelled;
 

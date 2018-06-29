@@ -9,7 +9,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.entity.EntityEvent;
 
 @Getter
-public class PlayerCanDamageEntityEvent extends EntityEvent implements Cancellable {
+public final class PlayerCanDamageEntityEvent extends EntityEvent implements Cancellable {
     private final Player player;
     @Setter private boolean cancelled;
 

@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 @Getter
 @RequiredArgsConstructor
-public class ItemNameEvent extends Event {
+public final class ItemNameEvent extends Event {
     private final ItemStack item;
     @Setter private String itemName;
 
