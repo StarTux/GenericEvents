@@ -1,8 +1,9 @@
 name: GenericEvents
 description: Generic events for cross plugin communication
 author: StarTux
-website: http://www.winthier.com
 version: 0.1
+api-version: 1.13
+website: http://www.winthier.com
 main: com.winthier.generic_events.GenericEventsPlugin
 depend: []
 commands:
