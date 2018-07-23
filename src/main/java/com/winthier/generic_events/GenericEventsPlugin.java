@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class GenericEventsPlugin extends JavaPlugin {
@@ -75,20 +76,20 @@ public final class GenericEventsPlugin extends JavaPlugin {
         return event.getBalance();
     }
 
-    public boolean givePlayerMoney(UUID uuid, double balance) {
+    public boolean givePlayerMoney(UUID uuid, double balance, Plugin issuingPlugin, String comment) {
         if (Double.isNaN(balance)) throw new IllegalArgumentException("Balance cannot be NaN");
         if (Double.isInfinite(balance)) throw new IllegalArgumentException("Balance cannot be infinite");
         if (balance < 0) throw new IllegalArgumentException("Balance cannot be negative");
-        AdjustPlayerBalanceEvent event = new AdjustPlayerBalanceEvent(uuid, balance);
+        GivePlayerMoneyEvent event = new GivePlayerMoneyEvent(uuid, balance, issuingPlugin, comment);
         getServer().getPluginManager().callEvent(event);
         return event.isSuccessful();
     }
 
-    public boolean takePlayerMoney(UUID uuid, double balance) {
+    public boolean takePlayerMoney(UUID uuid, double balance, Plugin issuingPlugin, String comment) {
         if (Double.isNaN(balance)) throw new IllegalArgumentException("Balance cannot be NaN");
         if (Double.isInfinite(balance)) throw new IllegalArgumentException("Balance cannot be infinite");
         if (balance < 0) throw new IllegalArgumentException("Balance cannot be negative");
-        AdjustPlayerBalanceEvent event = new AdjustPlayerBalanceEvent(uuid, -balance);
+        TakePlayerMoneyEvent event = new TakePlayerMoneyEvent(uuid, balance, issuingPlugin, comment);
         getServer().getPluginManager().callEvent(event);
         return event.isSuccessful();
     }

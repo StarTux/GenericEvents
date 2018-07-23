@@ -5,17 +5,21 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.bukkit.plugin.Plugin;
 
 @Getter @RequiredArgsConstructor
-public final class PlayerBalanceEvent extends Event {
+public final class GivePlayerMoneyEvent extends Event {
     private final UUID playerId;
-    private double balance;
+    private final double amount;
+    private final Plugin issuingPlugin;
+    private final String comment;
+    private boolean handled;
     private boolean successful;
 
-    public void setBalance(double value) {
-        if (successful) throw new IllegalStateException("Must not set balance more than once");
-        successful = true;
-        this.balance = value;
+    public void setSuccessful(boolean successful) {
+        if (handled) throw new IllegalStateException("Must not set balance more than once");
+        this.handled = true;
+        this.successful = successful;
     }
 
     // Event Stuff
