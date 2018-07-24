@@ -93,4 +93,11 @@ public final class GenericEventsPlugin extends JavaPlugin {
         getServer().getPluginManager().callEvent(event);
         return event.isSuccessful();
     }
+
+    public String formatMoney(double money) {
+        FormatMoneyEvent event = new FormatMoneyEvent(money);
+        getServer().getPluginManager().callEvent(event);
+        if (event.getFormat() != null) return event.getFormat();
+        return "" + money;
+    }
 }
