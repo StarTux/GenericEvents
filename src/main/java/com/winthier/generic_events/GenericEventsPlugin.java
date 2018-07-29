@@ -100,4 +100,12 @@ public final class GenericEventsPlugin extends JavaPlugin {
         if (event.getFormat() != null) return event.getFormat();
         return "" + money;
     }
+
+    // Permission
+
+    public boolean playerHasPermission(UUID playerId, String permission) {
+        PlayerHasPermissionEvent event = new PlayerHasPermissionEvent(playerId, permission);
+        getServer().getPluginManager().callEvent(event);
+        return event.isPermitted();
+    }
 }
