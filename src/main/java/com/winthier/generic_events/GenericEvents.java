@@ -67,6 +67,8 @@ public final class GenericEvents {
     // Permission
 
     public static boolean playerHasPermission(UUID playerId, String permission) {
+        if (playerId == null) throw new NullPointerException("Player UUID cannot be null");
+        if (permission == null) throw new NullPointerException("Permission cannot be null");
         PlayerHasPermissionEvent event = new PlayerHasPermissionEvent(playerId, permission);
         System.out.println("Calling " + event.getEventName());
         Bukkit.getServer().getPluginManager().callEvent(event);
@@ -76,12 +78,14 @@ public final class GenericEvents {
     // Cache
 
     public static String cachedPlayerName(UUID playerId) {
+        if (playerId == null) throw new NullPointerException("Player UUID cannot be null");
         PlayerCacheEvent event = new PlayerCacheEvent(playerId);
         Bukkit.getServer().getPluginManager().callEvent(event);
         return event.getName();
     }
 
     public static UUID cachedPlayerUuid(String playerName) {
+        if (playerName == null) throw new NullPointerException("Player name cannot be null");
         PlayerCacheEvent event = new PlayerCacheEvent(playerName);
         Bukkit.getServer().getPluginManager().callEvent(event);
         return event.getUniqueId();
