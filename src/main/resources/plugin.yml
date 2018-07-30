@@ -12,4 +12,5 @@ commands:
     permission: genericevents.genericevents
     usage: |-
       /genericevents itemname - get name of item in hand
+      /genericevents permission <player> <perm> - check player permission
 permissions: {}

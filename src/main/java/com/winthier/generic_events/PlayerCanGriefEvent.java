@@ -19,7 +19,7 @@ import org.bukkit.event.block.BlockEvent;
  * the block in questaion.  Any listening plugin should never use this
  * event to trigger any kind of feedback or message to the player.
  */
-@Getter
+@Getter @Deprecated
 public final class PlayerCanGriefEvent extends BlockEvent implements Cancellable {
     private final Player player;
     @Setter private boolean cancelled;

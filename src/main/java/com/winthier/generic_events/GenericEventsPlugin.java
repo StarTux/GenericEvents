@@ -2,6 +2,7 @@ package com.winthier.generic_events;
 
 import java.util.UUID;
 import lombok.Getter;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -28,84 +29,63 @@ public final class GenericEventsPlugin extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = sender instanceof Player ? (Player)sender : null;
         String cmd = args.length > 0 ? args[0].toLowerCase() : null;
-        if (cmd == null) {
-            return false;
-        } else if (cmd.equals("itemname")) {
+        if (cmd == null) return false;
+        switch (cmd) {
+        case "itemname":
             if (player == null) return false;
             sender.sendMessage("Item Name: '" + getItemName(player.getInventory().getItemInMainHand()) + "'");
-        } else {
-            return false;
+            return true;
+        case "permission":
+            if (args.length == 3) {
+                UUID uuid = GenericEvents.cachedPlayerUuid(args[1]);
+                if (uuid == null) {
+                    sender.sendMessage("Unknown player: " + args[1]);
+                    return true;
+                }
+                boolean has = playerHasPermission(uuid, args[2]);
+                sender.sendMessage(args[1] + " (" + uuid + ") has " + args[2] + ": " + has);
+                return true;
+            }
+            break;
+        default:
+            break;
         }
         return true;
     }
 
-    public boolean playerCanBuild(Player player, Block block) {
-        if (player.isOp()) return true;
-        PlayerCanBuildEvent event = new PlayerCanBuildEvent(player, block);
-        getServer().getPluginManager().callEvent(event);
-        return !event.isCancelled();
+    @Deprecated public boolean playerCanBuild(Player player, Block block) {
+        return GenericEvents.playerCanBuild(player, block);
     }
 
-    public boolean playerCanGrief(Player player, Block block) {
-        if (player.isOp()) return true;
-        PlayerCanGriefEvent event = new PlayerCanGriefEvent(player, block);
-        getServer().getPluginManager().callEvent(event);
-        return !event.isCancelled();
+    @Deprecated public boolean playerCanGrief(Player player, Block block) {
+        return GenericEvents.playerCanBuild(player, block);
     }
 
-    public boolean playerCanDamageEntity(Player player, Entity entity) {
-        if (player.isOp()) return true;
-        PlayerCanDamageEntityEvent event = new PlayerCanDamageEntityEvent(player, entity);
-        getServer().getPluginManager().callEvent(event);
-        return !event.isCancelled();
+    @Deprecated public boolean playerCanDamageEntity(Player player, Entity entity) {
+        return GenericEvents.playerCanDamageEntity(player, entity);
     }
 
-    // Item
-
-    public String getItemName(ItemStack item) {
-        ItemNameEvent event = new ItemNameEvent(item);
-        getServer().getPluginManager().callEvent(event);
-        return event.getItemName();
+    @Deprecated public String getItemName(ItemStack item) {
+        return GenericEvents.getItemName(item);
     }
 
-    // Money
-
-    public double getPlayerBalance(UUID uuid) {
-        PlayerBalanceEvent event = new PlayerBalanceEvent(uuid);
-        getServer().getPluginManager().callEvent(event);
-        return event.getBalance();
+    @Deprecated public double getPlayerBalance(UUID uuid) {
+        return GenericEvents.getPlayerBalance(uuid);
     }
 
-    public boolean givePlayerMoney(UUID uuid, double balance, Plugin issuingPlugin, String comment) {
-        if (Double.isNaN(balance)) throw new IllegalArgumentException("Balance cannot be NaN");
-        if (Double.isInfinite(balance)) throw new IllegalArgumentException("Balance cannot be infinite");
-        if (balance < 0) throw new IllegalArgumentException("Balance cannot be negative");
-        GivePlayerMoneyEvent event = new GivePlayerMoneyEvent(uuid, balance, issuingPlugin, comment);
-        getServer().getPluginManager().callEvent(event);
-        return event.isSuccessful();
+    @Deprecated public boolean givePlayerMoney(UUID uuid, double balance, Plugin issuingPlugin, String comment) {
+        return GenericEvents.givePlayerMoney(uuid, balance, issuingPlugin, comment);
     }
 
-    public boolean takePlayerMoney(UUID uuid, double balance, Plugin issuingPlugin, String comment) {
-        if (Double.isNaN(balance)) throw new IllegalArgumentException("Balance cannot be NaN");
-        if (Double.isInfinite(balance)) throw new IllegalArgumentException("Balance cannot be infinite");
-        if (balance < 0) throw new IllegalArgumentException("Balance cannot be negative");
-        TakePlayerMoneyEvent event = new TakePlayerMoneyEvent(uuid, balance, issuingPlugin, comment);
-        getServer().getPluginManager().callEvent(event);
-        return event.isSuccessful();
+    @Deprecated public boolean takePlayerMoney(UUID uuid, double balance, Plugin issuingPlugin, String comment) {
+        return GenericEvents.takePlayerMoney(uuid, balance, issuingPlugin, comment);
     }
 
-    public String formatMoney(double money) {
-        FormatMoneyEvent event = new FormatMoneyEvent(money);
-        getServer().getPluginManager().callEvent(event);
-        if (event.getFormat() != null) return event.getFormat();
-        return "" + money;
+    @Deprecated public String formatMoney(double money) {
+        return GenericEvents.formatMoney(money);
     }
 
-    // Permission
-
-    public boolean playerHasPermission(UUID playerId, String permission) {
-        PlayerHasPermissionEvent event = new PlayerHasPermissionEvent(playerId, permission);
-        getServer().getPluginManager().callEvent(event);
-        return event.isPermitted();
+    @Deprecated public boolean playerHasPermission(UUID playerId, String permission) {
+        return GenericEvents.playerHasPermission(playerId, permission);
     }
 }

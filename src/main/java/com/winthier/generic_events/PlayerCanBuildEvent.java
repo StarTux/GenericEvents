@@ -19,7 +19,7 @@ public final class PlayerCanBuildEvent extends BlockEvent implements Cancellable
     private final Player player;
     @Setter private boolean cancelled;
 
-    PlayerCanBuildEvent(Player player, Block block) {
+    public PlayerCanBuildEvent(Player player, Block block) {
         super(block);
         this.player = player;
     }
