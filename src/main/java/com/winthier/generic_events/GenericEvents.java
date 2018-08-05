@@ -70,7 +70,6 @@ public final class GenericEvents {
         if (playerId == null) throw new NullPointerException("Player UUID cannot be null");
         if (permission == null) throw new NullPointerException("Permission cannot be null");
         PlayerHasPermissionEvent event = new PlayerHasPermissionEvent(playerId, permission);
-        System.out.println("Calling " + event.getEventName());
         Bukkit.getServer().getPluginManager().callEvent(event);
         return event.isPermitted();
     }
