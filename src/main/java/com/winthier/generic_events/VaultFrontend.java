@@ -33,6 +33,7 @@ public final class VaultFrontend {
          * Checks if economy method is enabled.
          * @return Success or Failure
          */
+        @Override
         public boolean isEnabled() {
             return true;
         }
@@ -41,6 +42,7 @@ public final class VaultFrontend {
          * Gets name of economy method
          * @return Name of Economy Method
          */
+        @Override
         public String getName() {
             return "GenericEvents";
         }
@@ -49,6 +51,7 @@ public final class VaultFrontend {
          * Returns true if the given implementation supports banks.
          * @return true if the implementation supports banks
          */
+        @Override
         public boolean hasBankSupport() {
             return false;
         }
@@ -59,6 +62,7 @@ public final class VaultFrontend {
          * or -1 if no rounding occurs.
          * @return number of digits after the decimal point kept
          */
+        @Override
         public int fractionalDigits() {
             return 2;
         }
@@ -70,6 +74,7 @@ public final class VaultFrontend {
          * @param amount to format
          * @return Human readable string describing amount
          */
+        @Override
         public String format(double amount) {
             return GenericEvents.formatMoney(amount);
         }
@@ -80,6 +85,7 @@ public final class VaultFrontend {
          *
          * @return name of the currency (plural)
          */
+        @Override
         public String currencyNamePlural() {
             return "Kitty Coin"; // TODO
         }
@@ -91,6 +97,7 @@ public final class VaultFrontend {
          *
          * @return name of the currency (singular)
          */
+        @Override
         public String currencyNameSingular() {
             return "Kitty Coins"; // TODO
         }
@@ -99,7 +106,7 @@ public final class VaultFrontend {
          *
          * @deprecated As of VaultAPI 1.4 use {@link #hasAccount(OfflinePlayer)} instead.
          */
-        @Deprecated
+        @Override @Deprecated
         public boolean hasAccount(String playerName) {
             return GenericEvents.cachedPlayerUuid(playerName) != null;
         }
@@ -112,6 +119,7 @@ public final class VaultFrontend {
          * @param player to check
          * @return if the player has an account
          */
+        @Override
         public boolean hasAccount(OfflinePlayer player) {
             return GenericEvents.cachedPlayerName(player.getUniqueId()) != null;
         }
@@ -119,7 +127,7 @@ public final class VaultFrontend {
         /**
          * @deprecated As of VaultAPI 1.4 use {@link #hasAccount(OfflinePlayer, String)} instead.
          */
-        @Deprecated
+        @Override @Deprecated
         public boolean hasAccount(String playerName, String worldName) {
             return hasAccount(playerName);
         }
@@ -133,6 +141,7 @@ public final class VaultFrontend {
          * @param worldName world-specific account
          * @return if the player has an account
          */
+        @Override
         public boolean hasAccount(OfflinePlayer player, String worldName) {
             return hasAccount(player);
         }
@@ -140,7 +149,7 @@ public final class VaultFrontend {
         /**
          * @deprecated As of VaultAPI 1.4 use {@link #getBalance(OfflinePlayer)} instead.
          */
-        @Deprecated
+        @Override @Deprecated
         public double getBalance(String playerName) {
             UUID uuid = GenericEvents.cachedPlayerUuid(playerName);
             if (uuid == null) return 0.0;
@@ -153,6 +162,7 @@ public final class VaultFrontend {
          * @param player of the player
          * @return Amount currently held in players account
          */
+        @Override
         public double getBalance(OfflinePlayer player) {
             return GenericEvents.getPlayerBalance(player.getUniqueId());
         }
@@ -160,7 +170,7 @@ public final class VaultFrontend {
         /**
          * @deprecated As of VaultAPI 1.4 use {@link #getBalance(OfflinePlayer, String)} instead.
          */
-        @Deprecated
+        @Override @Deprecated
         public double getBalance(String playerName, String world) {
             return getBalance(playerName);
         }
@@ -172,6 +182,7 @@ public final class VaultFrontend {
          * @param world name of the world
          * @return Amount currently held in players account
          */
+        @Override
         public double getBalance(OfflinePlayer player, String world) {
             return getBalance(player);
         }
@@ -179,7 +190,7 @@ public final class VaultFrontend {
         /**
          * @deprecated As of VaultAPI 1.4 use {@link #has(OfflinePlayer, double)} instead.
          */
-        @Deprecated
+        @Override @Deprecated
         public boolean has(String playerName, double amount) {
             return getBalance(playerName) >= amount;
         }
@@ -191,6 +202,7 @@ public final class VaultFrontend {
          * @param amount to check for
          * @return True if <b>player</b> has <b>amount</b>, False else wise
          */
+        @Override
         public boolean has(OfflinePlayer player, double amount) {
             return getBalance(player) >= amount;
         }
@@ -198,7 +210,7 @@ public final class VaultFrontend {
         /**
          * @deprecated As of VaultAPI 1.4 use @{link {@link #has(OfflinePlayer, String, double)} instead.
          */
-        @Deprecated
+        @Override @Deprecated
         public boolean has(String playerName, String worldName, double amount) {
             return getBalance(playerName) >= amount;
         }
@@ -212,6 +224,7 @@ public final class VaultFrontend {
          * @param amount to check for
          * @return True if <b>player</b> has <b>amount</b>, False else wise
          */
+        @Override
         public boolean has(OfflinePlayer player, String worldName, double amount) {
             return getBalance(player) >= amount;
         }
@@ -219,7 +232,7 @@ public final class VaultFrontend {
         /**
          * @deprecated As of VaultAPI 1.4 use {@link #withdrawPlayer(OfflinePlayer, double)} instead.
          */
-        @Deprecated
+        @Override @Deprecated
         public EconomyResponse withdrawPlayer(String playerName, double amount) {
             UUID playerId = GenericEvents.cachedPlayerUuid(playerName);
             if (playerId == null) return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.FAILURE, "Player not found: " + playerName);
@@ -238,6 +251,7 @@ public final class VaultFrontend {
          * @param amount Amount to withdraw
          * @return Detailed response of transaction
          */
+        @Override
         public EconomyResponse withdrawPlayer(OfflinePlayer player, double amount) {
             UUID playerId = player.getUniqueId();
             boolean res = GenericEvents.takePlayerMoney(playerId, amount, plugin, "GenericEvents VaultFrontend");
@@ -251,7 +265,7 @@ public final class VaultFrontend {
         /**
          * @deprecated As of VaultAPI 1.4 use {@link #withdrawPlayer(OfflinePlayer, String, double)} instead.
          */
-        @Deprecated
+        @Override @Deprecated
         public EconomyResponse withdrawPlayer(String playerName, String worldName, double amount) {
             return withdrawPlayer(playerName, amount);
         }
@@ -264,6 +278,7 @@ public final class VaultFrontend {
          * @param amount Amount to withdraw
          * @return Detailed response of transaction
          */
+        @Override
         public EconomyResponse withdrawPlayer(OfflinePlayer player, String worldName, double amount) {
             return withdrawPlayer(player, amount);
         }
@@ -271,7 +286,7 @@ public final class VaultFrontend {
         /**
          * @deprecated As of VaultAPI 1.4 use {@link #depositPlayer(OfflinePlayer, double)} instead.
          */
-        @Deprecated
+        @Override @Deprecated
         public EconomyResponse depositPlayer(String playerName, double amount) {
             UUID playerId = GenericEvents.cachedPlayerUuid(playerName);
             if (playerId == null) return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.FAILURE, "Player not found: " + playerName);
@@ -286,6 +301,7 @@ public final class VaultFrontend {
          * @param amount Amount to deposit
          * @return Detailed response of transaction
          */
+        @Override
         public EconomyResponse depositPlayer(OfflinePlayer player, double amount) {
             UUID playerId = player.getUniqueId();
             GenericEvents.givePlayerMoney(playerId, amount, plugin, "GenericEvents VaultFrontend");
@@ -295,7 +311,7 @@ public final class VaultFrontend {
         /**
          * @deprecated As of VaultAPI 1.4 use {@link #depositPlayer(OfflinePlayer, String, double)} instead.
          */
-        @Deprecated
+        @Override @Deprecated
         public EconomyResponse depositPlayer(String playerName, String worldName, double amount) {
             return depositPlayer(playerName, amount);
         }
@@ -309,6 +325,7 @@ public final class VaultFrontend {
          * @param amount Amount to deposit
          * @return Detailed response of transaction
          */
+        @Override
         public EconomyResponse depositPlayer(OfflinePlayer player, String worldName, double amount) {
             return depositPlayer(player, amount);
         }
@@ -316,7 +333,7 @@ public final class VaultFrontend {
         /**
          * @deprecated As of VaultAPI 1.4 use {{@link #createBank(String, OfflinePlayer)} instead.
          */
-        @Deprecated
+        @Override @Deprecated
         public EconomyResponse createBank(String name, String player) {
             return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
         }
@@ -327,6 +344,7 @@ public final class VaultFrontend {
          * @param player the account should be linked to
          * @return EconomyResponse Object
          */
+        @Override
         public EconomyResponse createBank(String name, OfflinePlayer player) {
             return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
         }
@@ -336,6 +354,7 @@ public final class VaultFrontend {
          * @param name of the back to delete
          * @return if the operation completed successfully
          */
+        @Override
         public EconomyResponse deleteBank(String name) {
             return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
         }
@@ -345,6 +364,7 @@ public final class VaultFrontend {
          * @param name of the account
          * @return EconomyResponse Object
          */
+        @Override
         public EconomyResponse bankBalance(String name) {
             return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
         }
@@ -356,6 +376,7 @@ public final class VaultFrontend {
          * @param amount to check for
          * @return EconomyResponse Object
          */
+        @Override
         public EconomyResponse bankHas(String name, double amount) {
             return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
         }
@@ -367,6 +388,7 @@ public final class VaultFrontend {
          * @param amount to withdraw
          * @return EconomyResponse Object
          */
+        @Override
         public EconomyResponse bankWithdraw(String name, double amount) {
             return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
         }
@@ -378,6 +400,7 @@ public final class VaultFrontend {
          * @param amount to deposit
          * @return EconomyResponse Object
          */
+        @Override
         public EconomyResponse bankDeposit(String name, double amount) {
             return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
         }
@@ -385,7 +408,7 @@ public final class VaultFrontend {
         /**
          * @deprecated As of VaultAPI 1.4 use {{@link #isBankOwner(String, OfflinePlayer)} instead.
          */
-        @Deprecated
+        @Override @Deprecated
         public EconomyResponse isBankOwner(String name, String playerName) {
             return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
         }
@@ -397,6 +420,7 @@ public final class VaultFrontend {
          * @param player to check for ownership
          * @return EconomyResponse Object
          */
+        @Override
         public EconomyResponse isBankOwner(String name, OfflinePlayer player) {
             return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
         }
@@ -404,7 +428,7 @@ public final class VaultFrontend {
         /**
          * @deprecated As of VaultAPI 1.4 use {{@link #isBankMember(String, OfflinePlayer)} instead.
          */
-        @Deprecated
+        @Override @Deprecated
         public EconomyResponse isBankMember(String name, String playerName) {
             return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
         }
@@ -416,6 +440,7 @@ public final class VaultFrontend {
          * @param player to check membership
          * @return EconomyResponse Object
          */
+        @Override
         public EconomyResponse isBankMember(String name, OfflinePlayer player) {
             return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
         }
@@ -431,7 +456,7 @@ public final class VaultFrontend {
         /**
          * @deprecated As of VaultAPI 1.4 use {{@link #createPlayerAccount(OfflinePlayer)} instead.
          */
-        @Deprecated
+        @Override @Deprecated
         public boolean createPlayerAccount(String playerName) {
             return GenericEvents.cachedPlayerUuid(playerName) != null;
         }
@@ -441,6 +466,7 @@ public final class VaultFrontend {
          * @param player OfflinePlayer
          * @return if the account creation was successful
          */
+        @Override
         public boolean createPlayerAccount(OfflinePlayer player) {
             return true;
         }
@@ -448,7 +474,7 @@ public final class VaultFrontend {
         /**
          * @deprecated As of VaultAPI 1.4 use {{@link #createPlayerAccount(OfflinePlayer, String)} instead.
          */
-        @Deprecated
+        @Override @Deprecated
         public boolean createPlayerAccount(String playerName, String worldName) {
             return createPlayerAccount(playerName);
         }
@@ -460,6 +486,7 @@ public final class VaultFrontend {
          * @param worldName String name of the world
          * @return if the account creation was successful
          */
+        @Override
         public boolean createPlayerAccount(OfflinePlayer player, String worldName) {
             return createPlayerAccount(player);
         }
