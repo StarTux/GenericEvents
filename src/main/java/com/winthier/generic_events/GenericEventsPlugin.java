@@ -2,27 +2,52 @@ package com.winthier.generic_events;
 
 import java.util.UUID;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.server.PluginDisableEvent;
+import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class GenericEventsPlugin extends JavaPlugin {
+public final class GenericEventsPlugin extends JavaPlugin implements Listener {
     @Getter private static GenericEventsPlugin instance;
+    private VaultFrontend vaultFrontend = null;
+
+    @Override
+    public void onLoad() {
+        if (getConfig().getBoolean("VaultFrontend") && vaultFrontend == null) {
+            try {
+                Class.forName("net.milkbowl.vault.economy.Economy");
+                vaultFrontend = new VaultFrontend(this);
+                vaultFrontend.register();
+                getLogger().info("onLoad: Vault frontend enabled");
+            } catch (ClassNotFoundException cnfe) {
+                cnfe.printStackTrace();
+            }
+        }
+    }
 
     @Override
     public void onEnable() {
         instance = this;
+        Bukkit.getPluginManager().registerEvents(this, this);
     }
 
     @Override
     public void onDisable() {
         instance = null;
+        if (vaultFrontend != null) {
+            vaultFrontend.unregister();
+            vaultFrontend = null;
+        }
     }
 
     @Override
@@ -51,6 +76,23 @@ public final class GenericEventsPlugin extends JavaPlugin {
             break;
         }
         return true;
+    }
+
+    @EventHandler
+    public void onPluginEnable(PluginEnableEvent event) {
+        if (event.getPlugin().getName().equals("Vault") && getConfig().getBoolean("VaultFrontend") && vaultFrontend == null) {
+            vaultFrontend = new VaultFrontend(this);
+            getLogger().info("onPluginEnable: Vault frontend enabled");
+            vaultFrontend.register();
+        }
+    }
+
+    @EventHandler
+    public void onPluginDisable(PluginDisableEvent event) {
+        if (event.getPlugin().getName().equals("Vault") && vaultFrontend != null) {
+            vaultFrontend.unregister();
+            vaultFrontend = null;
+        }
     }
 
     @Deprecated public boolean playerCanBuild(Player player, Block block) {

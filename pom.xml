@@ -6,7 +6,7 @@
   <packaging>jar</packaging>
   <version>0.1-SNAPSHOT</version>
   <name>Generic Events</name>
-  <url>http://www.winthier.com</url>
+  <url>https://cavetale.com</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -15,6 +15,11 @@
     <repository>
       <id>spigot-repo</id>
       <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+    </repository>
+    <!-- Vault Repo -->
+    <repository>
+      <id>cavetale-repo</id>
+      <url>https://cavetale.com/jenkins/plugin/repository/everything/</url>
     </repository>
   </repositories>
   <dependencies>
@@ -29,6 +34,13 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.14.8</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- Vault -->
+    <dependency>
+      <groupId>net.milkbowl.vault</groupId>
+      <artifactId>VaultAPI</artifactId>
+      <version>1.6</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
