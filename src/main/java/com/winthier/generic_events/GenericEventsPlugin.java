@@ -38,15 +38,13 @@ public final class GenericEventsPlugin extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         instance = this;
+        reloadConfig();
+        saveDefaultConfig();
         Bukkit.getPluginManager().registerEvents(this, this);
-    }
-
-    @Override
-    public void onDisable() {
-        instance = null;
-        if (vaultFrontend != null) {
-            vaultFrontend.unregister();
-            vaultFrontend = null;
+        if (getConfig().getBoolean("VaultFrontend") && vaultFrontend == null && Bukkit.getPluginManager().isPluginEnabled("Vault")) {
+            vaultFrontend = new VaultFrontend(this);
+            vaultFrontend.register();
+            getLogger().info("onEnable: Vault frontend enabled");
         }
     }
 
