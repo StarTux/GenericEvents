@@ -29,9 +29,7 @@ public final class GenericEventsPlugin extends JavaPlugin implements Listener {
                 vaultFrontend = new VaultFrontend(this);
                 vaultFrontend.register();
                 getLogger().info("onLoad: Vault frontend enabled");
-            } catch (ClassNotFoundException cnfe) {
-                cnfe.printStackTrace();
-            }
+            } catch (ClassNotFoundException cnfe) { }
         }
     }
 
