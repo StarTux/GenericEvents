@@ -5,7 +5,7 @@
   <artifactId>generic_events</artifactId>
   <packaging>jar</packaging>
   <version>0.1-SNAPSHOT</version>
-  <name>Generic Events</name>
+  <name>GenericEvents</name>
   <url>https://cavetale.com</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,7 +27,7 @@
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
-      <version>1.13-R0.1-SNAPSHOT</version>
+      <version>1.13.2-R0.1-SNAPSHOT</version>
     </dependency>
     <!-- Lombok -->
     <dependency>
@@ -45,6 +45,7 @@
     </dependency>
   </dependencies>
   <build>
+    <finalName>${project.name}</finalName>
     <plugins>
       <!-- Java 8 -->
       <plugin>
