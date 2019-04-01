@@ -1,12 +1,12 @@
 package com.winthier.generic_events;
 
+import cn.nukkit.Player;
+import cn.nukkit.entity.Entity;
+import cn.nukkit.event.Cancellable;
+import cn.nukkit.event.HandlerList;
+import cn.nukkit.event.entity.EntityEvent;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Cancellable;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.entity.EntityEvent;
 
 @Getter
 public final class PlayerCanDamageEntityEvent extends EntityEvent implements Cancellable {
@@ -14,13 +14,13 @@ public final class PlayerCanDamageEntityEvent extends EntityEvent implements Can
     @Setter private boolean cancelled;
 
     public PlayerCanDamageEntityEvent(Player player, Entity entity) {
-        super(entity);
+        this.entity = entity;
         this.player = player;
     }
 
     // Event Stuff
-    @Getter private static HandlerList handlerList = new HandlerList();
-    @Override public HandlerList getHandlers() {
+    private static HandlerList handlerList = new HandlerList();
+    public static HandlerList getHandlers() {
         return handlerList;
     }
 }

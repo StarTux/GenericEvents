@@ -1,12 +1,12 @@
 name: GenericEvents
 description: Generic events for cross plugin communication
 author: StarTux
-version: 0.1
-api-version: 1.13
+version: "0.1"
+api: ["1.0.0"]
 website: https://cavetale.com
 main: com.winthier.generic_events.GenericEventsPlugin
 depend: []
-softedpend: [ Vault ]
+softedpend: []
 commands:
   genericevents:
     description: Debug command

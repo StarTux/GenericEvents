@@ -1,11 +1,11 @@
 package com.winthier.generic_events;
 
+import cn.nukkit.event.Event;
+import cn.nukkit.event.HandlerList;
+import cn.nukkit.plugin.Plugin;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.bukkit.event.Event;
-import org.bukkit.event.HandlerList;
-import org.bukkit.plugin.Plugin;
 
 @Getter @RequiredArgsConstructor
 public final class GivePlayerMoneyEvent extends Event {
@@ -23,8 +23,8 @@ public final class GivePlayerMoneyEvent extends Event {
     }
 
     // Event Stuff
-    @Getter private static HandlerList handlerList = new HandlerList();
-    @Override public HandlerList getHandlers() {
+    private static HandlerList handlerList = new HandlerList();
+    public static HandlerList getHandlers() {
         return handlerList;
     }
 }

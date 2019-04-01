@@ -1,33 +1,35 @@
 package com.winthier.generic_events;
 
+import cn.nukkit.Player;
+import cn.nukkit.Server;
+import cn.nukkit.block.Block;
+import cn.nukkit.entity.Entity;
+import cn.nukkit.item.Item;
+import cn.nukkit.plugin.Plugin;
 import java.util.UUID;
-import org.bukkit.Bukkit;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 
 public final class GenericEvents {
+    private GenericEvents() { }
+
     public static boolean playerCanBuild(Player player, Block block) {
         if (player.isOp()) return true;
         PlayerCanBuildEvent event = new PlayerCanBuildEvent(player, block);
-        Bukkit.getServer().getPluginManager().callEvent(event);
+        Server.getInstance().getPluginManager().callEvent(event);
         return !event.isCancelled();
     }
 
     public static boolean playerCanDamageEntity(Player player, Entity entity) {
         if (player.isOp()) return true;
         PlayerCanDamageEntityEvent event = new PlayerCanDamageEntityEvent(player, entity);
-        Bukkit.getServer().getPluginManager().callEvent(event);
+        Server.getInstance().getPluginManager().callEvent(event);
         return !event.isCancelled();
     }
 
     // Item
 
-    public static String getItemName(ItemStack item) {
+    public static String getItemName(Item item) {
         ItemNameEvent event = new ItemNameEvent(item);
-        Bukkit.getServer().getPluginManager().callEvent(event);
+        Server.getInstance().getPluginManager().callEvent(event);
         return event.getItemName();
     }
 
@@ -35,7 +37,7 @@ public final class GenericEvents {
 
     public static double getPlayerBalance(UUID uuid) {
         PlayerBalanceEvent event = new PlayerBalanceEvent(uuid);
-        Bukkit.getServer().getPluginManager().callEvent(event);
+        Server.getInstance().getPluginManager().callEvent(event);
         return event.getBalance();
     }
 
@@ -44,7 +46,7 @@ public final class GenericEvents {
         if (Double.isInfinite(balance)) throw new IllegalArgumentException("Balance cannot be infinite");
         if (balance < 0) throw new IllegalArgumentException("Balance cannot be negative");
         GivePlayerMoneyEvent event = new GivePlayerMoneyEvent(uuid, balance, issuingPlugin, comment);
-        Bukkit.getServer().getPluginManager().callEvent(event);
+        Server.getInstance().getPluginManager().callEvent(event);
         return event.isSuccessful();
     }
 
@@ -53,13 +55,13 @@ public final class GenericEvents {
         if (Double.isInfinite(balance)) throw new IllegalArgumentException("Balance cannot be infinite");
         if (balance < 0) throw new IllegalArgumentException("Balance cannot be negative");
         TakePlayerMoneyEvent event = new TakePlayerMoneyEvent(uuid, balance, issuingPlugin, comment);
-        Bukkit.getServer().getPluginManager().callEvent(event);
+        Server.getInstance().getPluginManager().callEvent(event);
         return event.isSuccessful();
     }
 
     public static String formatMoney(double money) {
         FormatMoneyEvent event = new FormatMoneyEvent(money);
-        Bukkit.getServer().getPluginManager().callEvent(event);
+        Server.getInstance().getPluginManager().callEvent(event);
         if (event.getFormat() != null) return event.getFormat();
         return "" + money;
     }
@@ -70,7 +72,7 @@ public final class GenericEvents {
         if (playerId == null) throw new NullPointerException("Player UUID cannot be null");
         if (permission == null) throw new NullPointerException("Permission cannot be null");
         PlayerHasPermissionEvent event = new PlayerHasPermissionEvent(playerId, permission);
-        Bukkit.getServer().getPluginManager().callEvent(event);
+        Server.getInstance().getPluginManager().callEvent(event);
         return event.isPermitted();
     }
 
@@ -79,14 +81,14 @@ public final class GenericEvents {
     public static String cachedPlayerName(UUID playerId) {
         if (playerId == null) throw new NullPointerException("Player UUID cannot be null");
         PlayerCacheEvent event = new PlayerCacheEvent(playerId);
-        Bukkit.getServer().getPluginManager().callEvent(event);
+        Server.getInstance().getPluginManager().callEvent(event);
         return event.getName();
     }
 
     public static UUID cachedPlayerUuid(String playerName) {
         if (playerName == null) throw new NullPointerException("Player name cannot be null");
         PlayerCacheEvent event = new PlayerCacheEvent(playerName);
-        Bukkit.getServer().getPluginManager().callEvent(event);
+        Server.getInstance().getPluginManager().callEvent(event);
         return event.getUniqueId();
     }
 }

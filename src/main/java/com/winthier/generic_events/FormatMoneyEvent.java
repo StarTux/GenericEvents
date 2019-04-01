@@ -1,9 +1,9 @@
 package com.winthier.generic_events;
 
+import cn.nukkit.event.Event;
+import cn.nukkit.event.HandlerList;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.bukkit.event.Event;
-import org.bukkit.event.HandlerList;
 
 @Getter @RequiredArgsConstructor
 public final class FormatMoneyEvent extends Event {
@@ -16,8 +16,8 @@ public final class FormatMoneyEvent extends Event {
     }
 
     // Event Stuff
-    @Getter private static HandlerList handlerList = new HandlerList();
-    @Override public HandlerList getHandlers() {
+    private static HandlerList handlerList = new HandlerList();
+    public static HandlerList getHandlers() {
         return handlerList;
     }
 }

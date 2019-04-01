@@ -1,11 +1,11 @@
 package com.winthier.generic_events;
 
+import cn.nukkit.event.Event;
+import cn.nukkit.event.HandlerList;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.bukkit.event.Event;
-import org.bukkit.event.HandlerList;
 
 @RequiredArgsConstructor @Getter
 public final class PlayerHasPermissionEvent extends Event {
@@ -14,8 +14,8 @@ public final class PlayerHasPermissionEvent extends Event {
     @Setter private boolean permitted = false;
 
     // Event Stuff
-    @Getter private static HandlerList handlerList = new HandlerList();
-    @Override public HandlerList getHandlers() {
+    private static HandlerList handlerList = new HandlerList();
+    public static HandlerList getHandlers() {
         return handlerList;
     }
 }

@@ -1,12 +1,12 @@
 package com.winthier.generic_events;
 
+import cn.nukkit.Player;
+import cn.nukkit.block.Block;
+import cn.nukkit.event.Cancellable;
+import cn.nukkit.event.HandlerList;
+import cn.nukkit.event.block.BlockEvent;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Cancellable;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.block.BlockEvent;
 
 /**
  * A plugin may call this event to ask around if a player is
@@ -25,8 +25,8 @@ public final class PlayerCanBuildEvent extends BlockEvent implements Cancellable
     }
 
     // Event Stuff
-    @Getter private static HandlerList handlerList = new HandlerList();
-    @Override public HandlerList getHandlers() {
+    private static HandlerList handlerList = new HandlerList();
+    public static HandlerList getHandlers() {
         return handlerList;
     }
 }
