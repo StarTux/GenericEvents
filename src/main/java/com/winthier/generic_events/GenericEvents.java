@@ -9,6 +9,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 public final class GenericEvents {
+    private GenericEvents() { }
+
     public static boolean playerCanBuild(Player player, Block block) {
         if (player.isOp()) return true;
         PlayerCanBuildEvent event = new PlayerCanBuildEvent(player, block);
