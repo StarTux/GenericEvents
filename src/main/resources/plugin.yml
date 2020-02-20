@@ -6,7 +6,7 @@ version: 0.1
 api-version: 1.13
 website: https://github.com/StarTux/GenericEvents
 depend: []
-softedpend: [Vault]
+softdepend: [Vault]
 commands:
   genericevents:
     description: Debug command
