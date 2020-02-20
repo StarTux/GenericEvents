@@ -5,8 +5,8 @@
   <artifactId>generic_events</artifactId>
   <version>0.1-SNAPSHOT</version>
 
-  <packaging>jar</packaging>
   <name>GenericEvents</name>
+  <packaging>jar</packaging>
   <url>https://github.com/StarTux/GenericEvents</url>
 
   <properties>
@@ -34,7 +34,7 @@
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
-      <version>1.15.1-R0.1-SNAPSHOT</version>
+      <version>1.15.2-R0.1-SNAPSHOT</version>
       <optional>true</optional>
     </dependency>
 
