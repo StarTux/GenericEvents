@@ -14,7 +14,7 @@ public final class PlayerCacheEvent extends Event {
     /**
      * Request to get the name matching the UUID.
      */
-    public PlayerCacheEvent(UUID uniqueId) {
+    public PlayerCacheEvent(final UUID uniqueId) {
         this.uniqueId = uniqueId;
         this.name = null;
     }
@@ -22,7 +22,7 @@ public final class PlayerCacheEvent extends Event {
     /**
      * Request to get the UUID matching the name.
      */
-    public PlayerCacheEvent(String name) {
+    public PlayerCacheEvent(final String name) {
         this.name = name;
         this.uniqueId = null;
     }

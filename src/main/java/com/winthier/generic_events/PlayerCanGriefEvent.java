@@ -24,7 +24,7 @@ public final class PlayerCanGriefEvent extends BlockEvent implements Cancellable
     private final Player player;
     @Setter private boolean cancelled;
 
-    PlayerCanGriefEvent(Player player, Block block) {
+    PlayerCanGriefEvent(final Player player, final Block block) {
         super(block);
         this.player = player;
     }

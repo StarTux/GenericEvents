@@ -11,7 +11,9 @@ public final class FormatMoneyEvent extends Event {
     private String format;
 
     public void setFormat(String value) {
-        if (this.format != null) throw new IllegalStateException("Must not set format more than once");
+        if (this.format != null) {
+            throw new IllegalStateException("Must not set format more than once");
+        }
         this.format = value;
     }
 

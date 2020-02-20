@@ -41,20 +41,36 @@ public final class GenericEvents {
         return event.getBalance();
     }
 
-    public static boolean givePlayerMoney(UUID uuid, double balance, Plugin issuingPlugin, String comment) {
-        if (Double.isNaN(balance)) throw new IllegalArgumentException("Balance cannot be NaN");
-        if (Double.isInfinite(balance)) throw new IllegalArgumentException("Balance cannot be infinite");
+    public static boolean givePlayerMoney(UUID uuid,
+                                          double balance,
+                                          Plugin issuingPlugin,
+                                          String comment) {
+        if (Double.isNaN(balance)) {
+            throw new IllegalArgumentException("Balance cannot be NaN");
+        }
+        if (Double.isInfinite(balance)) {
+            throw new IllegalArgumentException("Balance cannot be infinite");
+        }
         if (balance < 0) throw new IllegalArgumentException("Balance cannot be negative");
-        GivePlayerMoneyEvent event = new GivePlayerMoneyEvent(uuid, balance, issuingPlugin, comment);
+        GivePlayerMoneyEvent event = new GivePlayerMoneyEvent(uuid, balance,
+                                                              issuingPlugin, comment);
         Bukkit.getServer().getPluginManager().callEvent(event);
         return event.isSuccessful();
     }
 
-    public static boolean takePlayerMoney(UUID uuid, double balance, Plugin issuingPlugin, String comment) {
-        if (Double.isNaN(balance)) throw new IllegalArgumentException("Balance cannot be NaN");
-        if (Double.isInfinite(balance)) throw new IllegalArgumentException("Balance cannot be infinite");
+    public static boolean takePlayerMoney(UUID uuid,
+                                          double balance,
+                                          Plugin issuingPlugin,
+                                          String comment) {
+        if (Double.isNaN(balance)) {
+            throw new IllegalArgumentException("Balance cannot be NaN");
+        }
+        if (Double.isInfinite(balance)) {
+            throw new IllegalArgumentException("Balance cannot be infinite");
+        }
         if (balance < 0) throw new IllegalArgumentException("Balance cannot be negative");
-        TakePlayerMoneyEvent event = new TakePlayerMoneyEvent(uuid, balance, issuingPlugin, comment);
+        TakePlayerMoneyEvent event = new TakePlayerMoneyEvent(uuid, balance,
+                                                              issuingPlugin, comment);
         Bukkit.getServer().getPluginManager().callEvent(event);
         return event.isSuccessful();
     }

@@ -3,7 +3,6 @@ package com.winthier.generic_events;
 import java.util.UUID;
 import lombok.Getter;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -39,7 +38,9 @@ public final class GenericEventsPlugin extends JavaPlugin implements Listener {
         reloadConfig();
         saveDefaultConfig();
         Bukkit.getPluginManager().registerEvents(this, this);
-        if (getConfig().getBoolean("VaultFrontend") && vaultFrontend == null && Bukkit.getPluginManager().isPluginEnabled("Vault")) {
+        if (getConfig().getBoolean("VaultFrontend")
+            && vaultFrontend == null
+            && Bukkit.getPluginManager().isPluginEnabled("Vault")) {
             vaultFrontend = new VaultFrontend(this);
             vaultFrontend.register();
             getLogger().info("onEnable: Vault frontend enabled");
@@ -48,13 +49,20 @@ public final class GenericEventsPlugin extends JavaPlugin implements Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        Player player = sender instanceof Player ? (Player)sender : null;
+        Player player = sender instanceof Player
+            ? (Player) sender
+            : null;
         String cmd = args.length > 0 ? args[0].toLowerCase() : null;
         if (cmd == null) return false;
         switch (cmd) {
         case "itemname":
             if (player == null) return false;
-            sender.sendMessage("Item Name: '" + getItemName(player.getInventory().getItemInMainHand()) + "'");
+            ItemStack item = player.getInventory().getItemInMainHand();
+            if (item == null) {
+                sender.sendMessage("No item in hand");
+                return true;
+            }
+            sender.sendMessage("Item Name: '" + getItemName(item) + "'");
             return true;
         case "permission":
             if (args.length == 3) {
@@ -76,10 +84,16 @@ public final class GenericEventsPlugin extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPluginEnable(PluginEnableEvent event) {
-        if (event.getPlugin().getName().equals("Vault") && getConfig().getBoolean("VaultFrontend") && vaultFrontend == null) {
+        switch (event.getPlugin().getName()) {
+        case "Vault": {
+            if (!getConfig().getBoolean("VaultFrontend")) return;
+            if (vaultFrontend != null) return;
             vaultFrontend = new VaultFrontend(this);
             getLogger().info("onPluginEnable: Vault frontend enabled");
             vaultFrontend.register();
+            break;
+        }
+        default: break;
         }
     }
 
@@ -91,39 +105,50 @@ public final class GenericEventsPlugin extends JavaPlugin implements Listener {
         }
     }
 
-    @Deprecated public boolean playerCanBuild(Player player, Block block) {
+    @Deprecated
+    public boolean playerCanBuild(Player player, Block block) {
         return GenericEvents.playerCanBuild(player, block);
     }
 
-    @Deprecated public boolean playerCanGrief(Player player, Block block) {
+    @Deprecated
+    public boolean playerCanGrief(Player player, Block block) {
         return GenericEvents.playerCanBuild(player, block);
     }
 
-    @Deprecated public boolean playerCanDamageEntity(Player player, Entity entity) {
+    @Deprecated
+    public boolean playerCanDamageEntity(Player player, Entity entity) {
         return GenericEvents.playerCanDamageEntity(player, entity);
     }
 
-    @Deprecated public String getItemName(ItemStack item) {
+    @Deprecated
+    public String getItemName(ItemStack item) {
         return GenericEvents.getItemName(item);
     }
 
-    @Deprecated public double getPlayerBalance(UUID uuid) {
+    @Deprecated
+    public double getPlayerBalance(UUID uuid) {
         return GenericEvents.getPlayerBalance(uuid);
     }
 
-    @Deprecated public boolean givePlayerMoney(UUID uuid, double balance, Plugin issuingPlugin, String comment) {
+    @Deprecated
+    public boolean givePlayerMoney(UUID uuid, double balance,
+                                               Plugin issuingPlugin, String comment) {
         return GenericEvents.givePlayerMoney(uuid, balance, issuingPlugin, comment);
     }
 
-    @Deprecated public boolean takePlayerMoney(UUID uuid, double balance, Plugin issuingPlugin, String comment) {
+    @Deprecated
+    public boolean takePlayerMoney(UUID uuid, double balance,
+                                   Plugin issuingPlugin, String comment) {
         return GenericEvents.takePlayerMoney(uuid, balance, issuingPlugin, comment);
     }
 
-    @Deprecated public String formatMoney(double money) {
+    @Deprecated
+    public String formatMoney(double money) {
         return GenericEvents.formatMoney(money);
     }
 
-    @Deprecated public boolean playerHasPermission(UUID playerId, String permission) {
+    @Deprecated
+    public boolean playerHasPermission(UUID playerId, String permission) {
         return GenericEvents.playerHasPermission(playerId, permission);
     }
 }

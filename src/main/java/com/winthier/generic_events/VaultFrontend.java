@@ -21,7 +21,10 @@ public final class VaultFrontend {
     private final VaultEconomy economy = new VaultEconomy();
 
     void register() {
-        Bukkit.getServicesManager().register(Economy.class, this.economy, plugin, ServicePriority.High);
+        Bukkit.getServicesManager().register(Economy.class,
+                                             this.economy,
+                                             plugin,
+                                             ServicePriority.High);
     }
 
     void unregister() {
@@ -39,7 +42,7 @@ public final class VaultFrontend {
         }
 
         /**
-         * Gets name of economy method
+         * Gets name of economy method.
          * @return Name of Economy Method
          */
         @Override
@@ -81,7 +84,8 @@ public final class VaultFrontend {
 
         /**
          * Returns the name of the currency in plural form.
-         * If the economy being used does not support currency names then an empty string will be returned.
+         * If the economy being used does not support currency names
+         * then an empty string will be returned.
          *
          * @return name of the currency (plural)
          */
@@ -93,7 +97,8 @@ public final class VaultFrontend {
 
         /**
          * Returns the name of the currency in singular form.
-         * If the economy being used does not support currency names then an empty string will be returned.
+         * If the economy being used does not support currency names
+         * then an empty string will be returned.
          *
          * @return name of the currency (singular)
          */
@@ -112,9 +117,11 @@ public final class VaultFrontend {
         }
 
         /**
-         * Checks if this player has an account on the server yet
-         * This will always return true if the player has joined the server at least once
-         * as all major economy plugins auto-generate a player account when the player joins the server
+         * Checks if this player has an account on the server yet.
+         * This will always return true if the player has joined the
+         * server at least once as all major economy plugins
+         * auto-generate a player account when the player joins the
+         * server
          *
          * @param player to check
          * @return if the player has an account
@@ -125,7 +132,9 @@ public final class VaultFrontend {
         }
 
         /**
-         * @deprecated As of VaultAPI 1.4 use {@link #hasAccount(OfflinePlayer, String)} instead.
+         * @deprecated As of VaultAPI 1.4 use
+         *  {@link #hasAccount(OfflinePlayer, String)}
+         *  instead.
          */
         @Override @Deprecated
         public boolean hasAccount(String playerName, String worldName) {
@@ -133,9 +142,11 @@ public final class VaultFrontend {
         }
 
         /**
-         * Checks if this player has an account on the server yet on the given world
-         * This will always return true if the player has joined the server at least once
-         * as all major economy plugins auto-generate a player account when the player joins the server
+         * Checks if this player has an account on the server yet on
+         * the given world.  This will always return true if the
+         * player has joined the server at least once as all major
+         * economy plugins auto-generate a player account when the
+         * player joins the server
          *
          * @param player to check in the world
          * @param worldName world-specific account
@@ -157,7 +168,7 @@ public final class VaultFrontend {
         }
 
         /**
-         * Gets balance of a player
+         * Gets balance of a player.
          *
          * @param player of the player
          * @return Amount currently held in players account
@@ -168,7 +179,9 @@ public final class VaultFrontend {
         }
 
         /**
-         * @deprecated As of VaultAPI 1.4 use {@link #getBalance(OfflinePlayer, String)} instead.
+         * @deprecated As of VaultAPI 1.4 use
+         *  {@link #getBalance(OfflinePlayer, String)}
+         *  instead.
          */
         @Override @Deprecated
         public double getBalance(String playerName, String world) {
@@ -177,7 +190,8 @@ public final class VaultFrontend {
 
         /**
          * Gets balance of a player on the specified world.
-         * IMPLEMENTATION SPECIFIC - if an economy plugin does not support this the global balance will be returned.
+         * IMPLEMENTATION SPECIFIC - if an economy plugin does not
+         * support this the global balance will be returned.
          * @param player to check
          * @param world name of the world
          * @return Amount currently held in players account
@@ -188,7 +202,9 @@ public final class VaultFrontend {
         }
 
         /**
-         * @deprecated As of VaultAPI 1.4 use {@link #has(OfflinePlayer, double)} instead.
+         * @deprecated As of VaultAPI 1.4 use
+         *  {@link #has(OfflinePlayer, double)}
+         *  instead.
          */
         @Override @Deprecated
         public boolean has(String playerName, double amount) {
@@ -196,7 +212,8 @@ public final class VaultFrontend {
         }
 
         /**
-         * Checks if the player account has the amount - DO NOT USE NEGATIVE AMOUNTS
+         * Checks if the player account has the amount. DO NOT USE
+         * NEGATIVE AMOUNTS!
          *
          * @param player to check
          * @param amount to check for
@@ -208,7 +225,9 @@ public final class VaultFrontend {
         }
 
         /**
-         * @deprecated As of VaultAPI 1.4 use @{link {@link #has(OfflinePlayer, String, double)} instead.
+         * @deprecated As of VaultAPI 1.4 use
+         *  {@link #has(OfflinePlayer, String, double)}
+         *  instead.
          */
         @Override @Deprecated
         public boolean has(String playerName, String worldName, double amount) {
@@ -216,8 +235,10 @@ public final class VaultFrontend {
         }
 
         /**
-         * Checks if the player account has the amount in a given world - DO NOT USE NEGATIVE AMOUNTS
-         * IMPLEMENTATION SPECIFIC - if an economy plugin does not support this the global balance will be returned.
+         * Checks if the player account has the amount in a given
+         * world. DO NOT USE NEGATIVE AMOUNTS!
+         * IMPLEMENTATION SPECIFIC - if an economy plugin does not
+         * support this the global balance will be returned.
          *
          * @param player to check
          * @param worldName to check with
@@ -230,22 +251,34 @@ public final class VaultFrontend {
         }
 
         /**
-         * @deprecated As of VaultAPI 1.4 use {@link #withdrawPlayer(OfflinePlayer, double)} instead.
+         * @deprecated As of VaultAPI 1.4 use
+         *  {@link #withdrawPlayer(OfflinePlayer, double)}
+         *  instead.
          */
         @Override @Deprecated
         public EconomyResponse withdrawPlayer(String playerName, double amount) {
             UUID playerId = GenericEvents.cachedPlayerUuid(playerName);
-            if (playerId == null) return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.FAILURE, "Player not found: " + playerName);
-            boolean res = GenericEvents.takePlayerMoney(playerId, amount, plugin, "GenericEvents VaultFrontend");
+            if (playerId == null) {
+                return new EconomyResponse(0.0, 0.0,
+                                           EconomyResponse.ResponseType.FAILURE,
+                                           "Player not found: " + playerName);
+            }
+            boolean res = GenericEvents.takePlayerMoney(playerId, amount, plugin,
+                                                        "GenericEvents VaultFrontend");
             if (res) {
-                return new EconomyResponse(amount, GenericEvents.getPlayerBalance(playerId), EconomyResponse.ResponseType.SUCCESS, "Money withdrawn");
+                return new EconomyResponse(amount,
+                                           GenericEvents.getPlayerBalance(playerId),
+                                           EconomyResponse.ResponseType.SUCCESS,
+                                           "Money withdrawn");
             } else {
-                return new EconomyResponse(0.0, GenericEvents.getPlayerBalance(playerId), EconomyResponse.ResponseType.FAILURE, "Balance insufficient");
+                return new EconomyResponse(0.0, GenericEvents.getPlayerBalance(playerId),
+                                           EconomyResponse.ResponseType.FAILURE,
+                                           "Balance insufficient");
             }
         }
 
         /**
-         * Withdraw an amount from a player - DO NOT USE NEGATIVE AMOUNTS
+         * Withdraw an amount from a player. DO NOT USE NEGATIVE AMOUNTS!
          *
          * @param player to withdraw from
          * @param amount Amount to withdraw
@@ -254,16 +287,27 @@ public final class VaultFrontend {
         @Override
         public EconomyResponse withdrawPlayer(OfflinePlayer player, double amount) {
             UUID playerId = player.getUniqueId();
-            boolean res = GenericEvents.takePlayerMoney(playerId, amount, plugin, "GenericEvents VaultFrontend");
+            boolean res = GenericEvents.takePlayerMoney(playerId,
+                                                        amount,
+                                                        plugin,
+                                                        "GenericEvents VaultFrontend");
             if (res) {
-                return new EconomyResponse(amount, GenericEvents.getPlayerBalance(playerId), EconomyResponse.ResponseType.SUCCESS, "Money withdrawn");
+                return new EconomyResponse(amount,
+                                           GenericEvents.getPlayerBalance(playerId),
+                                           EconomyResponse.ResponseType.SUCCESS,
+                                           "Money withdrawn");
             } else {
-                return new EconomyResponse(0.0, GenericEvents.getPlayerBalance(playerId), EconomyResponse.ResponseType.FAILURE, "Balance insufficient");
+                return new EconomyResponse(0.0,
+                                           GenericEvents.getPlayerBalance(playerId),
+                                           EconomyResponse.ResponseType.FAILURE,
+                                           "Balance insufficient");
             }
         }
 
         /**
-         * @deprecated As of VaultAPI 1.4 use {@link #withdrawPlayer(OfflinePlayer, String, double)} instead.
+         * @deprecated As of VaultAPI 1.4 use
+         * {@link #withdrawPlayer(OfflinePlayer, String, double)}
+         * instead.
          */
         @Override @Deprecated
         public EconomyResponse withdrawPlayer(String playerName, String worldName, double amount) {
@@ -271,31 +315,44 @@ public final class VaultFrontend {
         }
 
         /**
-         * Withdraw an amount from a player on a given world - DO NOT USE NEGATIVE AMOUNTS
-         * IMPLEMENTATION SPECIFIC - if an economy plugin does not support this the global balance will be returned.
+         * Withdraw an amount from a player on a given world. DO NOT
+         * USE NEGATIVE AMOUNTS!
+         * IMPLEMENTATION SPECIFIC - if an economy plugin does not
+         * support this the global balance will be returned.
          * @param player to withdraw from
          * @param worldName - name of the world
          * @param amount Amount to withdraw
          * @return Detailed response of transaction
          */
         @Override
-        public EconomyResponse withdrawPlayer(OfflinePlayer player, String worldName, double amount) {
+        public EconomyResponse withdrawPlayer(OfflinePlayer player,
+                                              String worldName,
+                                              double amount) {
             return withdrawPlayer(player, amount);
         }
 
         /**
-         * @deprecated As of VaultAPI 1.4 use {@link #depositPlayer(OfflinePlayer, double)} instead.
+         * @deprecated As of VaultAPI 1.4 use
+         * {@link #depositPlayer(OfflinePlayer, double)}
+         * instead.
          */
         @Override @Deprecated
         public EconomyResponse depositPlayer(String playerName, double amount) {
             UUID playerId = GenericEvents.cachedPlayerUuid(playerName);
-            if (playerId == null) return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.FAILURE, "Player not found: " + playerName);
+            if (playerId == null) {
+                return new EconomyResponse(0.0, 0.0,
+                                           EconomyResponse.ResponseType.FAILURE,
+                                           "Player not found: " + playerName);
+            }
             GenericEvents.givePlayerMoney(playerId, amount, plugin, "GenericEvents VaultFrontend");
-            return new EconomyResponse(amount, GenericEvents.getPlayerBalance(playerId), EconomyResponse.ResponseType.SUCCESS, "Money deposited");
+            return new EconomyResponse(amount,
+                                       GenericEvents.getPlayerBalance(playerId),
+                                       EconomyResponse.ResponseType.SUCCESS,
+                                       "Money deposited");
         }
 
         /**
-         * Deposit an amount to a player - DO NOT USE NEGATIVE AMOUNTS
+         * Deposit an amount to a player. DO NOT USE NEGATIVE AMOUNTS!
          *
          * @param player to deposit to
          * @param amount Amount to deposit
@@ -304,12 +361,20 @@ public final class VaultFrontend {
         @Override
         public EconomyResponse depositPlayer(OfflinePlayer player, double amount) {
             UUID playerId = player.getUniqueId();
-            GenericEvents.givePlayerMoney(playerId, amount, plugin, "GenericEvents VaultFrontend");
-            return new EconomyResponse(amount, GenericEvents.getPlayerBalance(playerId), EconomyResponse.ResponseType.SUCCESS, "Money deposited");
+            GenericEvents.givePlayerMoney(playerId,
+                                          amount,
+                                          plugin,
+                                          "GenericEvents VaultFrontend");
+            return new EconomyResponse(amount,
+                                       GenericEvents.getPlayerBalance(playerId),
+                                       EconomyResponse.ResponseType.SUCCESS,
+                                       "Money deposited");
         }
 
         /**
-         * @deprecated As of VaultAPI 1.4 use {@link #depositPlayer(OfflinePlayer, String, double)} instead.
+         * @deprecated As of VaultAPI 1.4 use
+         *  {@link #depositPlayer(OfflinePlayer, String, double)}
+         *  instead.
          */
         @Override @Deprecated
         public EconomyResponse depositPlayer(String playerName, String worldName, double amount) {
@@ -317,8 +382,9 @@ public final class VaultFrontend {
         }
 
         /**
-         * Deposit an amount to a player - DO NOT USE NEGATIVE AMOUNTS
-         * IMPLEMENTATION SPECIFIC - if an economy plugin does not support this the global balance will be returned.
+         * Deposit an amount to a player. DO NOT USE NEGATIVE AMOUNTS!
+         * IMPLEMENTATION SPECIFIC - if an economy plugin does not
+         * support this the global balance will be returned.
          *
          * @param player to deposit to
          * @param worldName name of the world
@@ -326,27 +392,36 @@ public final class VaultFrontend {
          * @return Detailed response of transaction
          */
         @Override
-        public EconomyResponse depositPlayer(OfflinePlayer player, String worldName, double amount) {
+        public EconomyResponse depositPlayer(OfflinePlayer player,
+                                             String worldName,
+                                             double amount) {
             return depositPlayer(player, amount);
         }
 
         /**
-         * @deprecated As of VaultAPI 1.4 use {{@link #createBank(String, OfflinePlayer)} instead.
+         * @deprecated As of VaultAPI 1.4 use
+         *  {@link #createBank(String, OfflinePlayer)}
+         *  instead.
          */
         @Override @Deprecated
         public EconomyResponse createBank(String name, String player) {
-            return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
+            return new EconomyResponse(0.0, 0.0,
+                                       EconomyResponse.ResponseType.NOT_IMPLEMENTED,
+                                       "Banks not implemented");
         }
 
         /**
-         * Creates a bank account with the specified name and the player as the owner
+         * Creates a bank account with the specified name and the
+         * player as the owner.
          * @param name of account
          * @param player the account should be linked to
          * @return EconomyResponse Object
          */
         @Override
         public EconomyResponse createBank(String name, OfflinePlayer player) {
-            return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
+            return new EconomyResponse(0.0, 0.0,
+                                       EconomyResponse.ResponseType.NOT_IMPLEMENTED,
+                                       "Banks not implemented");
         }
 
         /**
@@ -356,21 +431,26 @@ public final class VaultFrontend {
          */
         @Override
         public EconomyResponse deleteBank(String name) {
-            return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
+            return new EconomyResponse(0.0, 0.0,
+                                       EconomyResponse.ResponseType.NOT_IMPLEMENTED,
+                                       "Banks not implemented");
         }
 
         /**
-         * Returns the amount the bank has
+         * Returns the amount the bank has.
          * @param name of the account
          * @return EconomyResponse Object
          */
         @Override
         public EconomyResponse bankBalance(String name) {
-            return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
+            return new EconomyResponse(0.0, 0.0,
+                                       EconomyResponse.ResponseType.NOT_IMPLEMENTED,
+                                       "Banks not implemented");
         }
 
         /**
-         * Returns true or false whether the bank has the amount specified - DO NOT USE NEGATIVE AMOUNTS
+         * Returns true or false whether the bank has the amount
+         * specified. DO NOT USE NEGATIVE AMOUNTS!
          *
          * @param name of the account
          * @param amount to check for
@@ -378,11 +458,14 @@ public final class VaultFrontend {
          */
         @Override
         public EconomyResponse bankHas(String name, double amount) {
-            return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
+            return new EconomyResponse(0.0, 0.0,
+                                       EconomyResponse.ResponseType.NOT_IMPLEMENTED,
+                                       "Banks not implemented");
         }
 
         /**
-         * Withdraw an amount from a bank account - DO NOT USE NEGATIVE AMOUNTS
+         * Withdraw an amount from a bank account. DO NOT USE
+         * NEGATIVE AMOUNTS!
          *
          * @param name of the account
          * @param amount to withdraw
@@ -390,11 +473,14 @@ public final class VaultFrontend {
          */
         @Override
         public EconomyResponse bankWithdraw(String name, double amount) {
-            return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
+            return new EconomyResponse(0.0, 0.0,
+                                       EconomyResponse.ResponseType.NOT_IMPLEMENTED,
+                                       "Banks not implemented");
         }
 
         /**
-         * Deposit an amount into a bank account - DO NOT USE NEGATIVE AMOUNTS
+         * Deposit an amount into a bank account. DO NOT USE NEGATIVE
+         * AMOUNTS!
          *
          * @param name of the account
          * @param amount to deposit
@@ -402,19 +488,25 @@ public final class VaultFrontend {
          */
         @Override
         public EconomyResponse bankDeposit(String name, double amount) {
-            return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
+            return new EconomyResponse(0.0, 0.0,
+                                       EconomyResponse.ResponseType.NOT_IMPLEMENTED,
+                                       "Banks not implemented");
         }
 
         /**
-         * @deprecated As of VaultAPI 1.4 use {{@link #isBankOwner(String, OfflinePlayer)} instead.
+         * @deprecated As of VaultAPI 1.4 use
+         *  {@link #isBankOwner(String, OfflinePlayer)}
+         *  instead.
          */
         @Override @Deprecated
         public EconomyResponse isBankOwner(String name, String playerName) {
-            return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
+            return new EconomyResponse(0.0, 0.0,
+                                       EconomyResponse.ResponseType.NOT_IMPLEMENTED,
+                                       "Banks not implemented");
         }
 
         /**
-         * Check if a player is the owner of a bank account
+         * Check if a player is the owner of a bank account.
          *
          * @param name of the account
          * @param player to check for ownership
@@ -422,19 +514,25 @@ public final class VaultFrontend {
          */
         @Override
         public EconomyResponse isBankOwner(String name, OfflinePlayer player) {
-            return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
+            return new EconomyResponse(0.0, 0.0,
+                                       EconomyResponse.ResponseType.NOT_IMPLEMENTED,
+                                       "Banks not implemented");
         }
 
         /**
-         * @deprecated As of VaultAPI 1.4 use {{@link #isBankMember(String, OfflinePlayer)} instead.
+         * @deprecated As of VaultAPI 1.4 use
+         *  {@link #isBankMember(String, OfflinePlayer)}
+         *  instead.
          */
         @Override @Deprecated
         public EconomyResponse isBankMember(String name, String playerName) {
-            return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
+            return new EconomyResponse(0.0, 0.0,
+                                       EconomyResponse.ResponseType.NOT_IMPLEMENTED,
+                                       "Banks not implemented");
         }
 
         /**
-         * Check if the player is a member of the bank account
+         * Check if the player is a member of the bank account.
          *
          * @param name of the account
          * @param player to check membership
@@ -442,11 +540,13 @@ public final class VaultFrontend {
          */
         @Override
         public EconomyResponse isBankMember(String name, OfflinePlayer player) {
-            return new EconomyResponse(0.0, 0.0, EconomyResponse.ResponseType.NOT_IMPLEMENTED, "Banks not implemented");
+            return new EconomyResponse(0.0, 0.0,
+                                       EconomyResponse.ResponseType.NOT_IMPLEMENTED,
+                                       "Banks not implemented");
         }
 
         /**
-         * Gets the list of banks
+         * Gets the list of banks.
          * @return the List of Banks
          */
         public List<String> getBanks() {
@@ -454,7 +554,9 @@ public final class VaultFrontend {
         }
 
         /**
-         * @deprecated As of VaultAPI 1.4 use {{@link #createPlayerAccount(OfflinePlayer)} instead.
+         * @deprecated As of VaultAPI 1.4 use
+         *  {@link #createPlayerAccount(OfflinePlayer)}
+         *  instead.
          */
         @Override @Deprecated
         public boolean createPlayerAccount(String playerName) {
@@ -462,7 +564,7 @@ public final class VaultFrontend {
         }
 
         /**
-         * Attempts to create a player account for the given player
+         * Attempts to create a player account for the given player.
          * @param player OfflinePlayer
          * @return if the account creation was successful
          */
@@ -472,7 +574,9 @@ public final class VaultFrontend {
         }
 
         /**
-         * @deprecated As of VaultAPI 1.4 use {{@link #createPlayerAccount(OfflinePlayer, String)} instead.
+         * @deprecated As of VaultAPI 1.4 use
+         *  {@link #createPlayerAccount(OfflinePlayer, String)}
+         *  instead.
          */
         @Override @Deprecated
         public boolean createPlayerAccount(String playerName, String worldName) {
@@ -480,8 +584,10 @@ public final class VaultFrontend {
         }
 
         /**
-         * Attempts to create a player account for the given player on the specified world
-         * IMPLEMENTATION SPECIFIC - if an economy plugin does not support this the global balance will be returned.
+         * Attempts to create a player account for the given player on
+         * the specified world.
+         * IMPLEMENTATION SPECIFIC - if an economy plugin does not
+         * support this the global balance will be returned.
          * @param player OfflinePlayer
          * @param worldName String name of the world
          * @return if the account creation was successful

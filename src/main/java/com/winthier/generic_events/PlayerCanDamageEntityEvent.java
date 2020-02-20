@@ -13,7 +13,7 @@ public final class PlayerCanDamageEntityEvent extends EntityEvent implements Can
     private final Player player;
     @Setter private boolean cancelled;
 
-    public PlayerCanDamageEntityEvent(Player player, Entity entity) {
+    public PlayerCanDamageEntityEvent(final Player player, final Entity entity) {
         super(entity);
         this.player = player;
     }
