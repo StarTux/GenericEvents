@@ -1,7 +1,9 @@
 package com.winthier.generic_events;
 
 import java.util.UUID;
+import lombok.NonNull;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -21,6 +23,12 @@ public final class GenericEvents {
     public static boolean playerCanDamageEntity(Player player, Entity entity) {
         if (player.isOp()) return true;
         PlayerCanDamageEntityEvent event = new PlayerCanDamageEntityEvent(player, entity);
+        Bukkit.getServer().getPluginManager().callEvent(event);
+        return !event.isCancelled();
+    }
+
+    public static boolean playerCanTeleport(Player player, Location location) {
+        PlayerCanTeleportEvent event = new PlayerCanTeleportEvent(player, location);
         Bukkit.getServer().getPluginManager().callEvent(event);
         return !event.isCancelled();
     }
@@ -84,9 +92,7 @@ public final class GenericEvents {
 
     // Permission
 
-    public static boolean playerHasPermission(UUID playerId, String permission) {
-        if (playerId == null) throw new NullPointerException("Player UUID cannot be null");
-        if (permission == null) throw new NullPointerException("Permission cannot be null");
+    public static boolean playerHasPermission(@NonNull UUID playerId, @NonNull String permission) {
         PlayerHasPermissionEvent event = new PlayerHasPermissionEvent(playerId, permission);
         Bukkit.getServer().getPluginManager().callEvent(event);
         return event.isPermitted();
@@ -94,15 +100,13 @@ public final class GenericEvents {
 
     // Cache
 
-    public static String cachedPlayerName(UUID playerId) {
-        if (playerId == null) throw new NullPointerException("Player UUID cannot be null");
+    public static String cachedPlayerName(@NonNull UUID playerId) {
         PlayerCacheEvent event = new PlayerCacheEvent(playerId);
         Bukkit.getServer().getPluginManager().callEvent(event);
         return event.getName();
     }
 
-    public static UUID cachedPlayerUuid(String playerName) {
-        if (playerName == null) throw new NullPointerException("Player name cannot be null");
+    public static UUID cachedPlayerUuid(@NonNull String playerName) {
         PlayerCacheEvent event = new PlayerCacheEvent(playerName);
         Bukkit.getServer().getPluginManager().callEvent(event);
         return event.getUniqueId();
