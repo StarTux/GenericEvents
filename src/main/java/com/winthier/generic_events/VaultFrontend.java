@@ -91,7 +91,7 @@ public final class VaultFrontend {
          */
         @Override
         public String currencyNamePlural() {
-            return "Kitty Coin"; // TODO
+            return "Coin";
         }
 
 
@@ -104,7 +104,7 @@ public final class VaultFrontend {
          */
         @Override
         public String currencyNameSingular() {
-            return "Kitty Coins"; // TODO
+            return "Coins";
         }
 
         /**
