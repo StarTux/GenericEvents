@@ -14,7 +14,7 @@ import org.bukkit.event.block.BlockEvent;
  * cancelled, it means no.  The calling plugin may then choose not
  * do whatever action it was about to commit.
  */
-@Getter
+@Getter @Deprecated
 public final class PlayerCanBuildEvent extends BlockEvent implements Cancellable {
     private final Player player;
     @Setter private boolean cancelled;

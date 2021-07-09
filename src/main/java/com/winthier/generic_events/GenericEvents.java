@@ -16,8 +16,12 @@ public final class GenericEvents {
     public static boolean playerCanBuild(Player player, Block block) {
         if (player.isOp()) return true;
         PlayerCanBuildEvent event = new PlayerCanBuildEvent(player, block);
-        Bukkit.getServer().getPluginManager().callEvent(event);
-        return !event.isCancelled();
+        Bukkit.getPluginManager().callEvent(event);
+        if (event.isCancelled()) return false;
+        com.cavetale.core.event.block.PlayerCanBuildEvent newEvent
+            = new com.cavetale.core.event.block.PlayerCanBuildEvent(player, block);
+        Bukkit.getPluginManager().callEvent(newEvent);
+        return !newEvent.isCancelled();
     }
 
     public static boolean playerCanDamageEntity(Player player, Entity entity) {
