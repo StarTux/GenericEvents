@@ -15,31 +15,25 @@
 
   <repositories>
 
-    <!-- Spigot Repo -->
-    <repository>
-      <id>spigot-repo</id>
-      <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-    </repository>
-
     <!-- Cavetale Repo -->
     <repository>
       <id>cavetale</id>
       <url>https://cavetale.com/jenkins/plugin/repository/everything/</url>
     </repository>
 
-    <!-- Vault Repo -->
+    <!-- Paper Repo -->
     <repository>
-      <id>cavetale-repo</id>
-      <url>https://cavetale.com/jenkins/plugin/repository/everything/</url>
+      <id>papermc</id>
+      <url>https://papermc.io/repo/repository/maven-public/</url>
     </repository>
 
   </repositories>
   <dependencies>
 
-    <!-- Spigot-API -->
+    <!-- Paper API -->
     <dependency>
-      <groupId>org.spigotmc</groupId>
-      <artifactId>spigot-api</artifactId>
+      <groupId>io.papermc.paper</groupId>
+      <artifactId>paper-api</artifactId>
       <version>1.17.1-R0.1-SNAPSHOT</version>
     </dependency>
 
