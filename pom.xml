@@ -45,22 +45,6 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- Vault -->
-    <dependency>
-      <groupId>net.milkbowl.vault</groupId>
-      <artifactId>VaultAPI</artifactId>
-      <version>1.7</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <!-- Core -->
-    <dependency>
-      <groupId>com.cavetale.core</groupId>
-      <artifactId>core</artifactId>
-      <version>0.1-SNAPSHOT</version>
-      <scope>provided</scope>
-    </dependency>
-
   </dependencies>
   <build>
     <finalName>${project.name}</finalName>
