@@ -3,7 +3,7 @@
 
   <groupId>com.winthier.generic_events</groupId>
   <artifactId>generic_events</artifactId>
-  <version>0.1-SNAPSHOT</version>
+  <version>1.12.2-SNAPSHOT</version>
 
   <name>GenericEvents</name>
   <packaging>jar</packaging>
@@ -34,7 +34,7 @@
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
-      <version>1.16.3-R0.1-SNAPSHOT</version>
+      <version>1.12.2-R0.1-SNAPSHOT</version>
       <optional>true</optional>
     </dependency>
 
